@@ -20,35 +20,41 @@ function getSeatGeekData() {
     url: seatGeekURL,
     method: "GET",
   }).then(function (data) {
-    var concertNameVar = data.events[0].performers[0].name;
-    var concertVenueVar = data.events[0].venue.name;
-    var concertAddressVar =
-      data.events[0].venue.address +
-      " " +
-      data.events[0].venue.extended_address;
-    var concertURL = data.events[0].url;
-    var concertDateTimeVar = data.events[0].datetime_local;
+    for (var i = 0; i < 20; i++) {
+      var concertNameVar = data.events[i].title;
+      var concertVenueVar = data.events[i].venue.name;
+      var concertAddressVar =
+        data.events[i].venue.address +
+        " " +
+        data.events[i].venue.extended_address;
+      var concertURL = data.events[i].url;
+      var concertDateTimeVar = data.events[i].datetime_local;
 
-    var formatDateVar = moment(concertDateTimeVar).format("dddd, MM-DD-YYYY");
-    var formatTimeVar = moment(concertDateTimeVar).format("h:mm A");
+      var formatDateVar = moment(concertDateTimeVar).format("dddd, MM-DD-YYYY");
+      var formatTimeVar = moment(concertDateTimeVar).format("h:mm A");
 
-    var imageSource = data.events[0].performers[0].image;
+      var imageSource = data.events[i].performers[0].image;
 
-    // console.log(data);
-    console.log(concertNameVar);
-    console.log(concertVenueVar);
-    console.log(concertAddressVar);
-    console.log(concertDateTimeVar);
-    console.log(formatDateVar);
-    console.log(formatTimeVar);
-    console.log(concertURL);
+      // console.log(data);
+      // console.log(concertNameVar);
+      // console.log(concertVenueVar);
+      // console.log(concertAddressVar);
+      // console.log(concertDateTimeVar);
+      // console.log(formatDateVar);
+      // console.log(formatTimeVar);
+      // console.log(concertURL);
 
-    //STORE TO EVENTSNEWARRAY
+      //STORE TO EVENTSNEWARRAY
+      // eventsNewArray[i].concertName = concertNameVar;
+      // eventsNewArray[i].concertVenue = concertVenueVar;
+      // eventsNewArray[i].formatDate = formatDateVar;
+      // eventsNewArray[i].formatTime = formatTimeVar;
+      // eventsNewArray[i].concertU = concertURL;
+      console.log(eventsNewArray);
+      //APPEND TO DOM WITH NICK & ABBY'S CARDS
 
-    //APPEND TO DOM WITH NICK & ABBY'S CARDS
-
-    $(".cardContainer").append(`
-    <div class="column">
+      $(".cardContainer").append(`
+    <div class="column is-half-tablet is-one-third-desktop is-one-quarter-widescreen">
     <div class="card">
     <div class="card-image">
       <figure class="image is-4by3">
@@ -85,6 +91,7 @@ function getSeatGeekData() {
   </div>
   </div>
     `);
+    }
   });
 }
 

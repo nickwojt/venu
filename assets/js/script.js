@@ -10,7 +10,7 @@ var eventsNewArray = [];
 var seatGeekURL =
   "https://api.seatgeek.com/2/events?&taxonomies.name=concert&venue.state=" +
   userStateVar +
-  "&client_id=MjI4NDY0NzJ8MTYyODUzOTcyMy40OTk4MDYy";
+  "&per_page=20&client_id=MjI4NDY0NzJ8MTYyODUzOTcyMy40OTk4MDYy";
 
 getSeatGeekData();
 
@@ -26,10 +26,13 @@ function getSeatGeekData() {
       data.events[0].venue.address +
       " " +
       data.events[0].venue.extended_address;
+    var concertURL = data.events[0].url;
     var concertDateTimeVar = data.events[0].datetime_local;
 
-    var formatDateVar = moment(concertDateTimeVar).format("MM-DD-YYYY");
-    var formatTimeVar = moment(concertDateTimeVar).format("hh:mm:ss");
+    var formatDateVar = moment(concertDateTimeVar).format("dddd, MM-DD-YYYY");
+    var formatTimeVar = moment(concertDateTimeVar).format("h:mm A");
+
+    var imageSource = data.events[0].performers[0].image;
 
     // console.log(data);
     console.log(concertNameVar);
@@ -38,12 +41,57 @@ function getSeatGeekData() {
     console.log(concertDateTimeVar);
     console.log(formatDateVar);
     console.log(formatTimeVar);
+    console.log(concertURL);
 
     //STORE TO EVENTSNEWARRAY
 
     //APPEND TO DOM WITH NICK & ABBY'S CARDS
+
+    $(".cardContainer").append(`
+    <div class="column">
+    <div class="card">
+    <div class="card-image">
+      <figure class="image is-4by3">
+      <img
+        src="${imageSource}"
+        alt="Band image"
+      />
+    </figure>
+    </div>
+    <div class="card-content">
+      <div class="media">
+        <div class="media-content">
+          <p class="title is-4">${concertNameVar}</p>
+          <p class="is-6">${concertVenueVar}</p>
+          <p class="is-6">${formatDateVar}</p>
+          <p class="is-6">${formatTimeVar}</p>
+        </div>
+      </div>
+
+      <div class="content">
+        <a href="${concertURL}" target="no_blank">Buy Tickets at SeatGeek Here</a>
+      </div>
+
+      <footer class="card-footer">
+        <a href="#" class="card-footer-item button is-link">Save</a>
+        <a href="#" class="card-footer-item button is-link is-hidden">Delete</a>
+
+        <button class="card-footer-item button is-link open-modal">View Map 
+    
+        </button>
+
+      </footer>
+    </div>
+  </div>
+  </div>
+    `);
   });
 }
+
+$(document).on("click", ".open-modal", function () {
+  //event.preventDefault();
+  $(".modal").addClass("is-active");
+});
 
 function storeSeatGeekLocal(thisConcert) {
   concertDataArray.push(thisConcert);

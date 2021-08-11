@@ -27,6 +27,7 @@ function getSeatGeekData() {
         data.events[i].venue.address +
         " " +
         data.events[i].venue.extended_address;
+      var editedAddressVar = editAddressVar(concertAddressVar);
       var concertURL = data.events[i].url;
       var concertDateTimeVar = data.events[i].datetime_local;
 
@@ -35,6 +36,9 @@ function getSeatGeekData() {
 
       var imageSource = data.events[i].performers[0].image;
 
+      var googleMapsURL =
+        "https://www.google.com/maps/embed/v1/search?key=AIzaSyA7VdkObovB8PwzEmD0TLuGTikHJ1T5SxE&zoom=10&q==" +
+        editedAddressVar;
       // console.log(data);
       // console.log(concertNameVar);
       // console.log(concertVenueVar);
@@ -45,12 +49,19 @@ function getSeatGeekData() {
       // console.log(concertURL);
 
       //STORE TO EVENTSNEWARRAY
-      // eventsNewArray[i].concertName = concertNameVar;
-      // eventsNewArray[i].concertVenue = concertVenueVar;
-      // eventsNewArray[i].formatDate = formatDateVar;
-      // eventsNewArray[i].formatTime = formatTimeVar;
-      // eventsNewArray[i].concertU = concertURL;
-      console.log(eventsNewArray);
+      newObject = {
+        index: i,
+        concertName: concertNameVar,
+        concertVenue: concertVenueVar,
+        formatDate: formatDateVar,
+        formatTime: formatTimeVar,
+        concertU: concertURL,
+        googleMapsU: googleMapsURL,
+        image: imageSource,
+      };
+
+      eventsNewArray.push(newObject);
+
       //APPEND TO DOM WITH NICK & ABBY'S CARDS
 
       $(".cardContainer").append(`
@@ -82,7 +93,7 @@ function getSeatGeekData() {
         <a href="#" class="card-footer-item button is-link">Save</a>
         <a href="#" class="card-footer-item button is-link is-hidden">Delete</a>
 
-        <button class="card-footer-item button is-link open-modal">View Map 
+        <button class="card-footer-item button is-link open-modal" data-index="${i}">View Map 
     
         </button>
 
@@ -90,15 +101,48 @@ function getSeatGeekData() {
     </div>
   </div>
   </div>
+
+  <div class="modal numberModal${i}">
+        <div class="modal-background eventModalClose"></div>
+        <div class="modal-content">
+          <iframe
+            width="450"
+            height="250"
+            frameborder="0"
+            style="border: 0"
+            src="${googleMapsURL}"
+            allowfullscreen
+          >
+          </iframe>
+        </div>
+        <button class="modal-close is-large eventModalClose" aria-label="close"></button>
+      </div>
+
     `);
     }
   });
 }
 
-$(document).on("click", ".open-modal", function () {
-  //event.preventDefault();
-  $(".modal").addClass("is-active");
+//EVENT LISTENERS FOR MAP BUTTONS
+$(document).on("click", ".open-modal", function (event) {
+  event.preventDefault();
+
+  var getIndex = $(this).attr("data-index");
+  //get unique index identified from click: getIndex = 0, 2, 3 ,4
+  var classIndex = ".numberModal" + getIndex;
+  //adds the unique index to the class to target the specified card: classIndex= .numberModal1, classIndex= .numberModal17
+  $(classIndex).addClass("is-active");
 });
+
+//EVENT LISTENER TO CLOSE MAPS
+$(document).on("click", ".eventModalClose", function (event) {
+  $(".modal").removeClass("is-active");
+});
+
+function editAddressVar(concertAddressVar) {
+  var editedAddressVar = concertAddressVar.replace(/\s/g, "+");
+  return editedAddressVar;
+}
 
 function storeSeatGeekLocal(thisConcert) {
   concertDataArray.push(thisConcert);

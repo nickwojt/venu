@@ -2,21 +2,22 @@
 var seatGeekEl = $(".seatGeekEl");
 var googleMapsEl = $(".googleMapsEl");
 //DECLARE GLOBAL VARIABLES - USER SELECTED STATE &
-var userStateVar = "CO";
+var userStateVar;
 var eventsNewArray = [];
-//CREATE SEATGEEK REQUEST-URL
-var seatGeekURL =
-  "https://api.seatgeek.com/2/events?&taxonomies.name=concert&venue.state=" +
-  userStateVar +
-  "&per_page=20&client_id=MjI4NDY0NzJ8MTYyODUzOTcyMy40OTk4MDYy";
-getSeatGeekData();
+
+// getSeatGeekData();
 //THIS FUNCTION RETRIEVES AND STORES SEATGEEK API DATA into
 function getSeatGeekData() {
+  //CREATE SEATGEEK REQUEST-URL
+  var seatGeekURL =
+    "https://api.seatgeek.com/2/events?&taxonomies.name=concert&venue.state=" +
+    userStateVar +
+    "&per_page=20&client_id=MjI4NDY0NzJ8MTYyODUzOTcyMy40OTk4MDYy";
   $.ajax({
     url: seatGeekURL,
     method: "GET",
   }).then(function (data) {
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < data.events.length; i++) {
       var concertNameVar = data.events[i].title;
       var concertVenueVar = data.events[i].venue.name;
       var concertAddressVar =
@@ -115,6 +116,13 @@ $(document).on("click", ".open-modal", function (event) {
   $(classIndex).addClass("is-active");
 });
 
+$(document).on("click", ".dropdown-item", function (event) {
+  event.preventDefault();
+  userStateVar = $(this).text();
+  console.log(typeof userStateVar);
+  $("dropdown").removeClass("is-active");
+  getSeatGeekData();
+});
 //EVENT LISTENER TO CLOSE MAPS
 $(document).on("click", ".eventModalClose", function (event) {
   $(".modal").removeClass("is-active");

@@ -1,6 +1,6 @@
 //DECLARE GLOBAL VARIABLES - JQUERY REFERENCE S
-var seatGeekEl = $(".seatGeekEl");
-var googleMapsEl = $(".googleMapsEl");
+var seatGeekEl = $('.seatGeekEl');
+var googleMapsEl = $('.googleMapsEl');
 //DECLARE GLOBAL VARIABLES - USER SELECTED STATE &
 var userStateVar;
 var eventsNewArray = [];
@@ -10,28 +10,28 @@ var eventsNewArray = [];
 function getSeatGeekData() {
   //CREATE SEATGEEK REQUEST-URL
   var seatGeekURL =
-    "https://api.seatgeek.com/2/events?&taxonomies.name=concert&venue.state=" +
+    'https://api.seatgeek.com/2/events?&taxonomies.name=concert&venue.state=' +
     userStateVar +
-    "&per_page=20&client_id=MjI4NDY0NzJ8MTYyODUzOTcyMy40OTk4MDYy";
+    '&per_page=20&client_id=MjI4NDY0NzJ8MTYyODUzOTcyMy40OTk4MDYy';
   $.ajax({
     url: seatGeekURL,
-    method: "GET",
+    method: 'GET',
   }).then(function (data) {
     for (var i = 0; i < data.events.length; i++) {
       var concertNameVar = data.events[i].title;
       var concertVenueVar = data.events[i].venue.name;
       var concertAddressVar =
         data.events[i].venue.address +
-        " " +
+        ' ' +
         data.events[i].venue.extended_address;
       var editedAddressVar = editAddressVar(concertAddressVar);
       var concertURL = data.events[i].url;
       var concertDateTimeVar = data.events[i].datetime_local;
-      var formatDateVar = moment(concertDateTimeVar).format("dddd, MM-DD-YYYY");
-      var formatTimeVar = moment(concertDateTimeVar).format("h:mm A");
+      var formatDateVar = moment(concertDateTimeVar).format('dddd, MM-DD-YYYY');
+      var formatTimeVar = moment(concertDateTimeVar).format('h:mm A');
       var imageSource = data.events[i].performers[0].image;
       var googleMapsURL =
-        "https://www.google.com/maps/embed/v1/search?key=AIzaSyA7VdkObovB8PwzEmD0TLuGTikHJ1T5SxE&zoom=10&q==" +
+        'https://www.google.com/maps/embed/v1/search?key=AIzaSyA7VdkObovB8PwzEmD0TLuGTikHJ1T5SxE&zoom=10&q==' +
         editedAddressVar;
       // console.log(data);
       // console.log(concertNameVar);
@@ -54,16 +54,16 @@ function getSeatGeekData() {
       };
       eventsNewArray.push(newObject);
       //APPEND TO DOM WITH NICK & ABBY'S CARDS
-      $(".cardContainer").append(`
+      $('.cardContainer').append(`
     <div class="column is-half-tablet is-one-third-desktop is-one-quarter-widescreen">
     <div class="card">
     <div class="card-image">
       <figure class="image is-4by3">
-      <img
+      <a href="${concertURL}" target="no_blank"> <img
         src="${imageSource}"
-        alt="Band image"
-      />
-    </figure>
+        alt="Band image" />
+      </a>
+      </figure>
     </div>
     <div class="card-content">
       <div class="media">
@@ -75,12 +75,12 @@ function getSeatGeekData() {
         </div>
       </div>
       <div class="content">
-        <a href="${concertURL}" target="no_blank">Buy Tickets at SeatGeek Here</a>
+        <a href="${concertURL}" target="no_blank" class="buy">Buy Tickets at SeatGeek Here</a>
       </div>
       <footer class="card-footer">
-        <a href="#" class="card-footer-item button is-link">Save</a>
-        <a href="#" class="card-footer-item button is-link is-hidden">Delete</a>
-        <button class="card-footer-item button is-link open-modal" data-index="${i}">View Map 
+        <a href="#" class="card-footer-item button  save">Save</a>
+        <a href="#" class="card-footer-item button  is-hidden delete">Delete</a>
+        <button class="card-footer-item button open-modal map" data-index="${i}">View Map 
     
         </button>
       </footer>
@@ -107,29 +107,29 @@ function getSeatGeekData() {
   });
 }
 //EVENT LISTENERS FOR MAP BUTTONS
-$(document).on("click", ".open-modal", function (event) {
+$(document).on('click', '.open-modal', function (event) {
   event.preventDefault();
-  var getIndex = $(this).attr("data-index");
+  var getIndex = $(this).attr('data-index');
   //get unique index identified from click: getIndex = 0, 2, 3 ,4
-  var classIndex = ".numberModal" + getIndex;
+  var classIndex = '.numberModal' + getIndex;
   //adds the unique index to the class to target the specified card: classIndex= .numberModal1, classIndex= .numberModal17
-  $(classIndex).addClass("is-active");
+  $(classIndex).addClass('is-active');
 });
 
-$(document).on("click", ".dropdown-item", function (event) {
+$(document).on('click', '.dropdown-item', function (event) {
   event.preventDefault();
   userStateVar = $(this).text();
   console.log(typeof userStateVar);
-  $("dropdown").removeClass("is-active");
+  $('dropdown').removeClass('is-active');
   getSeatGeekData();
 });
 //EVENT LISTENER TO CLOSE MAPS
-$(document).on("click", ".eventModalClose", function (event) {
-  $(".modal").removeClass("is-active");
+$(document).on('click', '.eventModalClose', function (event) {
+  $('.modal').removeClass('is-active');
 });
 
 function editAddressVar(concertAddressVar) {
-  var editedAddressVar = concertAddressVar.replace(/\s/g, "+");
+  var editedAddressVar = concertAddressVar.replace(/\s/g, '+');
   return editedAddressVar;
 }
 function storeSeatGeekLocal(thisConcert) {
@@ -138,7 +138,7 @@ function storeSeatGeekLocal(thisConcert) {
 }
 //LOCAL STORAGE FUNCTIONS ------
 function initSeatGeek() {
-  var savedConcertArray = JSON.parse(localStorage.getItem("concertDataArray"));
+  var savedConcertArray = JSON.parse(localStorage.getItem('concertDataArray'));
   if (savedConcertArray) {
     concertDataArray = savedConcertArray;
   }
@@ -146,7 +146,7 @@ function initSeatGeek() {
   displaySeatGeek();
 }
 function saveSeatGeek() {
-  localStorage.setItem("concertDataArray", JSON.stringify(concertDataArray));
+  localStorage.setItem('concertDataArray', JSON.stringify(concertDataArray));
 }
 //SCRATCH WORK NOTES ------
 // Plug in state to requestURL

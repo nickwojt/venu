@@ -9,11 +9,15 @@
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
     />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap"
+    />
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
     ></script>
-    <title>Event Finder</title>
+    <title>Venu</title>
   </head>
   <body>
     <div
@@ -22,8 +26,10 @@
         is-flex is-justify-content-space-between is-align-items-center
       "
     >
-      <h1 class="is-size-1 ml-4">Event Finder</h1>
-      <a class="button is-primary mr-4">Saved</a>
+      <h1 class="is-size-1 ml-4">
+        Ven<span class="you has-text-primary">u</span>
+      </h1>
+      <a class="button mr-4 saved">Saved</a>
     </div>
     <section
       class="
@@ -37,7 +43,7 @@
         <div class="dropdown is-hoverable">
           <div class="dropdown-trigger">
             <button
-              class="button searchButton is-link"
+              class="button searchButton"
               aria-haspopup="true"
               aria-controls="dropdown-menu "
             >
@@ -60,8 +66,9 @@
               ><a href="" class="dropdown-item">AR</a
               ><a href="" class="dropdown-item">CA</a
               ><a href="" class="dropdown-item">CO</a
-              ><a href="" class="dropdown-item">CT</a
-              ><a href="" class="dropdown-item">DE</a
+              ><a href="" class="dropdown-item">CT</a>
+              <a href="" class="dropdown-item">DC</a>
+              <a href="" class="dropdown-item">DE</a
               ><a href="" class="dropdown-item">FL</a
               ><a href="" class="dropdown-item">GA</a
               ><a href="" class="dropdown-item">HI</a
@@ -110,10 +117,9 @@
     </section>
     <div class="columns m-3 is-variable is-2 cardContainer is-multiline"></div>
     <footer>
-      <h1>Contact Info here</h1>
+      <h2>Contact Info here</h2>
     </footer>
-    <div class="seatGeekEl">seatGeekInfo</div>
-    <div class="googleMapsEl">GoogleMaps</div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- MOMENT -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

@@ -1,8 +1,113 @@
-.card {
-  height: 100%;
+* {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+  background-color: whitesmoke;
+  /*made background a shade darker to help discern cards
+  also added a shadow to cards further down*/
+}
+
+.section {
+  background-color: #f5f5f5;
+}
+
+/*Header/Logo*/
+/* curently white */
+h1 {
+  color: #8a4d76;
+  font-weight: bold;
+}
+
+.you {
+  font-style: italic;
+}
+
+.saved {
+  /*not working yet added class = "saved" to index for the saved button*/
+  background-color: #00d1b2;
+  color: #ffff;
+}
+
+.saved:hover {
+  /*not working yet added class = "saved" to index for the saved button*/
+  background-color: #feecf0;
+  color: #ea4aaaff;
+  border-color: #ea4aaaff;
+}
+
+/*Banner with States Dropdown */
+/*currently overall background color 00d1b2ff*/
+.hero.is-primary .subtitle {
+  color: #8a4d76;
+  font-weight: bolder;
+}
+
+.searchButton {
+  background-color: #8a4d76;
+  color: #fff;
+  border-color: #00d1b2;
+}
+
+.dropdown-item:hover {
+  background-color: #ebfffc !important;
+  color: #00d1b2 !important;
 }
 
 .dropdown-content {
   max-height: 13em;
   overflow: auto;
+}
+
+/*Background of cards*/
+.card {
+  height: 100%;
+  box-shadow: 0px 0px 10px #8a4d76;
+  /*0 0 are horizontal and vertical ofsets.
+  10px is how far the shadow fades out*/
+  /*I don't like this specific one but a shadow will help*/
+}
+
+.card-footer-item {
+  background-color: #00d1b2;
+  color: #ffff;
+}
+
+/*Cards*/
+.buy {
+  /*added class="buy" in script to buy link*/
+  color: #48c78e;
+  font-weight: bold;
+}
+
+.card-footer-item.save:hover {
+  /*added class="save" in script to save button*/
+  background-color: #feecf0;
+  color: #ea4aaaff;
+  border-color: #ea4aaaff;
+  font-weight: bold;
+}
+
+.card-footer-item.delete:hover {
+  /*added class="buy" in script to delete button*/
+  background-color: #feeeeb;
+  color: #cc0f35;
+  border-color: #cc0f35;
+  font-weight: bold;
+}
+
+.card-footer-item.map:hover {
+  /*added class="buy" in script to map button*/
+  background-color: #eff1fa;
+  color: #485fc7;
+  border-color: #485fc7;
+  font-weight: bold;
+}
+
+/*Footer*/
+h2 {
+  /*changed to h2 from h1 to make it easier to edit
+    footer separately from header*/
+  font-family: 'Times New Roman', Times, serif;
+  color: #8a4d76;
 }

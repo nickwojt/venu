@@ -1,5 +1,5 @@
 * {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 body {
@@ -88,7 +88,7 @@ h1 {
   font-weight: bold;
 }
 
-.card-footer-item.delete:hover {
+.card-footer-item.remove:hover {
   /*added class="buy" in script to delete button*/
   background-color: #feeeeb;
   color: #cc0f35;
@@ -108,6 +108,6 @@ h1 {
 h2 {
   /*changed to h2 from h1 to make it easier to edit
     footer separately from header*/
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   color: #8a4d76;
 }

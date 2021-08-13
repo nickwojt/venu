@@ -5,7 +5,6 @@ var googleMapsEl = $(".googleMapsEl");
 var userStateVar;
 var eventsNewArray = [];
 var savedEventsArray = JSON.parse(localStorage.getItem("savedEvents")) || [];
-
 // getSeatGeekData();
 //THIS FUNCTION RETRIEVES AND STORES SEATGEEK API DATA into
 function getSeatGeekData() {
@@ -22,6 +21,7 @@ function getSeatGeekData() {
     method: "GET",
   }).then(function (data) {
     for (var i = 0; i < data.events.length; i++) {
+      console.log(data.events[i]);
       var concertNameVar = data.events[i].title;
       var concertVenueVar = data.events[i].venue.name;
       var concertAddressVar =
@@ -37,7 +37,6 @@ function getSeatGeekData() {
       var googleMapsURL =
         "https://www.google.com/maps/embed/v1/search?key=AIzaSyA7VdkObovB8PwzEmD0TLuGTikHJ1T5SxE&zoom=10&q==" +
         editedAddressVar;
-
       //STORE TO EVENTSNEWARRAY
       newObject = {
         concertName: concertNameVar,
@@ -47,6 +46,7 @@ function getSeatGeekData() {
         concertU: concertURL,
         googleMapsU: googleMapsURL,
         image: imageSource,
+        uniqueID: data.events[i].id,
       };
       eventsNewArray.push(newObject);
       //APPEND TO DOM WITH NICK & ABBY'S CARDS
@@ -112,7 +112,6 @@ $(document).on("click", ".open-modal", function (event) {
   //adds the unique index to the class to target the specified card: classIndex= .numberModal1, classIndex= .numberModal17
   $(classIndex).addClass("is-active");
 });
-
 $(document).on("click", ".dropdown-item", function (event) {
   event.preventDefault();
   userStateVar = $(this).text();
@@ -123,15 +122,30 @@ $(document).on("click", ".dropdown-item", function (event) {
 $(document).on("click", ".eventModalClose", function (event) {
   $(".modal").removeClass("is-active");
 });
-
 // Event listener for save button
 $(document).on("click", ".save", function (event) {
   event.preventDefault();
   var getIndex = $(this).attr("data-index");
-  savedEventsArray.push(eventsNewArray[getIndex]);
-  localStorage.setItem("savedEvents", JSON.stringify(savedEventsArray));
+  console.log(savedEventsArray.indexOf(eventsNewArray[getIndex]));
+  console.log({ savedEventsArray });
+  console.log(eventsNewArray[getIndex]);
+  //LOOP AND IF STATEMENT CHECK IF EVENT IS ALREADY SAVED
+  var newItemUnique = isEventInSavedEvents(eventsNewArray[getIndex]);
+  if (newItemUnique) {
+    savedEventsArray.push(eventsNewArray[getIndex]);
+    localStorage.setItem("savedEvents", JSON.stringify(savedEventsArray));
+  }
 });
-
+function isEventInSavedEvents(newEvent) {
+  var newItemUnique = true;
+  for (var i = 0; i < savedEventsArray.length; i++) {
+    if (savedEventsArray[i].uniqueID === newEvent.uniqueID) {
+      newItemUnique = false;
+      break;
+    }
+  }
+  return newItemUnique;
+}
 // event listener for "delete" button
 $(document).on("click", ".remove", function (event) {
   event.preventDefault();
@@ -142,7 +156,6 @@ $(document).on("click", ".remove", function (event) {
   $(".hero").empty();
   renderSavedCards(savedEventsArray);
 });
-
 // Return any saved events to the viewport
 $(document).on("click", ".saved", function (event) {
   $(".cardContainer").empty();
@@ -154,19 +167,16 @@ $(document).on("click", ".saved", function (event) {
   );
   renderSavedCards(savedEventsArray);
 });
-
 $(document).on("click", ".go-back", function (event) {
   event.preventDefault();
   $(".go-back").addClass("is-hidden");
   $(".saved").removeClass("is-hidden");
   window.location.reload();
 });
-
 function editAddressVar(concertAddressVar) {
   var editedAddressVar = concertAddressVar.replace(/\s/g, "+");
   return editedAddressVar;
 }
-
 //LOCAL STORAGE FUNCTIONS ------
 // render saved cards on the screen
 function renderSavedCards(savedCards) {

@@ -1,7 +1,8 @@
+/* Sets the font for the whole document */
 * {
   font-family: "Ubuntu", sans-serif;
 }
-
+/* Applies a background color to whole body */
 body {
   background-color: whitesmoke;
   /*made background a shade darker to help discern cards
@@ -119,9 +120,8 @@ h2 {
   align-items: center;
 }
 
-/* .card-footer {
-  position: relative;
-  bottom: 5%;
-  left: 5%;
-  width: 90%;
-} */
+.modal-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

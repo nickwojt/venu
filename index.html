@@ -4,15 +4,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Adds a favicon -->
+    <link href="./assets/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <!-- Links Bulma, a CSS framework -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
     />
+    <!-- Links custom CSS  -->
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- Links Ubuntu font-->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap"
     />
+    <!-- Makes fontawesome icons available -->
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
@@ -31,6 +37,7 @@
       </h1>
       <a class="button mr-4 saved">Saved</a>
     </div>
+    <!-- Section with our hero below the navbar and holds our dropdown selector -->
     <section
       class="
         hero
@@ -58,6 +65,7 @@
             id="dropdown-menu"
             role="menu"
           >
+            <!-- Links with all of the available state selections -->
             <div class="dropdown-content">
               <a href="" class="dropdown-item">AL</a>
               <a href="" class="dropdown-item">AK</a
@@ -114,7 +122,10 @@
         </div>
       </div>
     </section>
-    <div class="columns m-3 is-variable is-2 cardContainer is-multiline"></div>
+    <div class="columns m-3 is-variable is-2 cardContainer is-multiline">
+      <!-- This container will be populated with event cards in the selected state and also in the saved section. Appended by javascript. -->
+    </div>
+    <!-- Footer with group names and github logo that takes you to repo when clicked -->
     <footer class="footer">
       <div class="names">
         <ul>
@@ -125,13 +136,16 @@
         </ul>
       </div>
       <div class="logo">
-        <i class="fab fa-github fa-5x"></i>
+        <a href="https://github.com/nickwojt/event-finder" target="no_blank"
+          ><i class="fab fa-github fa-5x"></i
+        ></a>
       </div>
     </footer>
-
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- MOMENT -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!-- Custom JS file -->
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

@@ -4,13 +4,13 @@ var googleMapsEl = $(".googleMapsEl");
 //DECLARE GLOBAL VARIABLES - USER SELECTED STATE &
 var userStateVar;
 var eventsNewArray = [];
+// Populates saved array with local storage items or empty array if nothing has been saved
 var savedEventsArray = JSON.parse(localStorage.getItem("savedEvents")) || [];
-$(".state-selected").text(userStateVar);
-// getSeatGeekData();
-//THIS FUNCTION RETRIEVES AND STORES SEATGEEK API DATA into
+
+//THIS FUNCTION RETRIEVES AND STORES SEATGEEK API DATA into eventsNewArray and appends them to the DOM as cards
 function getSeatGeekData() {
-  // empty any displayed content in the viewport
   eventsNewArray = [];
+  // empty any displayed content in the viewport
   $(".cardContainer").empty();
   //CREATE SEATGEEK REQUEST-URL
   var seatGeekURL =
@@ -50,7 +50,7 @@ function getSeatGeekData() {
         uniqueID: data.events[i].id,
       };
       eventsNewArray.push(newObject);
-      //APPEND TO DOM WITH NICK & ABBY'S CARDS
+      //APPEND TO DOM
       $(".cardContainer").append(`
     <div class="column is-half-tablet is-one-third-desktop is-one-quarter-widescreen">
     <div class="card">
@@ -113,6 +113,7 @@ $(document).on("click", ".open-modal", function (event) {
   //adds the unique index to the class to target the specified card: classIndex= .numberModal1, classIndex= .numberModal17
   $(classIndex).addClass("is-active");
 });
+// Event listener for the dropdown items
 $(document).on("click", ".dropdown-item", function (event) {
   event.preventDefault();
   userStateVar = $(this).text();
@@ -138,6 +139,7 @@ $(document).on("click", ".save", function (event) {
     localStorage.setItem("savedEvents", JSON.stringify(savedEventsArray));
   }
 });
+// Checks if newly saved event is already saved or not
 function isEventInSavedEvents(newEvent) {
   var newItemUnique = true;
   for (var i = 0; i < savedEventsArray.length; i++) {
@@ -169,12 +171,14 @@ $(document).on("click", ".saved", function (event) {
   );
   renderSavedCards(savedEventsArray);
 });
+// Event listener for go back button, refreshes the page if it is clicked
 $(document).on("click", ".go-back", function (event) {
   event.preventDefault();
   $(".go-back").addClass("is-hidden");
   $(".saved").removeClass("is-hidden");
   window.location.reload();
 });
+// Puts address in correct format so google maps api URL can use it
 function editAddressVar(concertAddressVar) {
   var editedAddressVar = concertAddressVar.replace(/\s/g, "+");
   return editedAddressVar;
@@ -234,12 +238,3 @@ function renderSavedCards(savedCards) {
     `);
   }
 }
-//SCRATCH WORK NOTES ------
-// Plug in state to requestURL
-//https://api.seatgeek.com/2/events?venue.state=CO&client_id=MjI4NDY0NzJ8MTYyODUzOTcyMy40OTk4MDYy
-// For loop to pull 20 events, need to save the following to an array of objects
-//  artistNameVar = data.events[i].venue.name
-// venueNameVar = data.events[i].venue.name
-//  venueAddressVar = data.events[i].venue.address + data.events[i].venue.extended_address
-//  eventDateTimeVar = data.events[i].datetime_local
-//  eventUrlVar = data.events[i].

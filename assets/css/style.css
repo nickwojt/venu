@@ -7,6 +7,9 @@ body {
   background-color: whitesmoke;
   /*made background a shade darker to help discern cards
   also added a shadow to cards further down*/
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 .section {
@@ -113,11 +116,18 @@ h2 {
   color: #8a4d76;
 }
 
+.cardContainer {
+  position: relative;
+  display: block;
+  flex: 1;
+}
+
 .footer {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 3rem;
 }
 
 .modal-content {

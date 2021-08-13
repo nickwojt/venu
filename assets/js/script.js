@@ -5,6 +5,7 @@ var googleMapsEl = $(".googleMapsEl");
 var userStateVar;
 var eventsNewArray = [];
 var savedEventsArray = JSON.parse(localStorage.getItem("savedEvents")) || [];
+$(".state-selected").text(userStateVar);
 // getSeatGeekData();
 //THIS FUNCTION RETRIEVES AND STORES SEATGEEK API DATA into
 function getSeatGeekData() {
@@ -116,6 +117,7 @@ $(document).on("click", ".dropdown-item", function (event) {
   event.preventDefault();
   userStateVar = $(this).text();
   $("dropdown").removeClass("is-active");
+  $(".state-selected").text(userStateVar);
   getSeatGeekData();
 });
 //EVENT LISTENER TO CLOSE MAPS

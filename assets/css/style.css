@@ -111,3 +111,17 @@ h2 {
   font-family: "Times New Roman", Times, serif;
   color: #8a4d76;
 }
+
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* .card-footer {
+  position: relative;
+  bottom: 5%;
+  left: 5%;
+  width: 90%;
+} */
